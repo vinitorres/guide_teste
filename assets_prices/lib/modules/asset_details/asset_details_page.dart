@@ -65,7 +65,10 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> {
                       height: 16,
                     ),
                     Center(
-                      child: Text(state.financialAsset?.meta.symbol ?? 'Error'),
+                      child: Text(
+                        state.financialAsset?.meta.symbol ?? 'Error',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                     SizedBox(
                       height: 16,

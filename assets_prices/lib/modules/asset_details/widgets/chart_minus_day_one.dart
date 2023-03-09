@@ -35,33 +35,28 @@ class _ChartMinusDayOneState extends State<ChartMinusDayOne> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Container(
-        padding: EdgeInsets.all(16),
-        height: 400,
-        width: 600,
-        child: LineChart(
-          LineChartData(
-            lineBarsData: [
-              LineChartBarData(
-                spots: getSpots(),
-                isCurved: false,
-                barWidth: 2,
-                isStrokeCapRound: true,
-                dotData: FlDotData(
-                  show: true,
-                ),
-                belowBarData: BarAreaData(
-                  show: true,
-                ),
+    return AspectRatio(
+      aspectRatio: 1.4,
+      child: LineChart(
+        LineChartData(
+          lineTouchData: LineTouchData(enabled: true),
+          lineBarsData: [
+            LineChartBarData(
+              spots: getSpots(),
+              isCurved: false,
+              barWidth: 2,
+              dotData: FlDotData(
+                show: true,
               ),
-            ],
-            maxX: 30,
-            minX: 1,
-            maxY: getMaxYValue(),
-            minY: getMinYValue(),
-          ),
+              belowBarData: BarAreaData(
+                show: true,
+              ),
+            ),
+          ],
+          maxX: 30,
+          minX: 1,
+          maxY: getMaxYValue(),
+          minY: getMinYValue(),
         ),
       ),
     );
