@@ -14,11 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var flutterEngine = FlutterEngine(name: "Engine")
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
         flutterEngine.run()
-        // Connects plugins with iOS platform code to this app.
         GeneratedPluginRegistrant.register(with: self.flutterEngine);
-        
         return true
     }
     

@@ -46,8 +46,4 @@ class FinancialAsset {
     }
     return quotesOpening;
   }
-
-  double getFirstDayValue() {
-    return this.indicators.quote.first.open.first;
-  }
 }

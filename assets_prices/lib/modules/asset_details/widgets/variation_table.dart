@@ -10,6 +10,7 @@ class VariationTable extends StatelessWidget {
 
   final TextStyle style = const TextStyle(
       color: Colors.black, fontWeight: FontWeight.bold, fontSize: 8);
+  final defaultPadding = const EdgeInsets.all(4.0);
 
   List<TableRow> createTable(
     List<DateTime> dates,
@@ -27,39 +28,39 @@ class VariationTable extends StatelessWidget {
           child:
               Text("variação D-1", textAlign: TextAlign.center, style: style)),
       Center(
-          child: Text("variação data 1",
+          child: Text("variação dia 1",
               textAlign: TextAlign.center, style: style)),
     ]));
 
     for (int i = 0; i < dates.length; i++) {
       TableRow row = TableRow(children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: defaultPadding,
           child: Center(child: Text((i + 1).toString(), style: style)),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: defaultPadding,
           child: Center(
               child: Text(DateFormatHelper.convertToDDMMAA(dates[i]),
                   style: style)),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: defaultPadding,
           child: Center(
               child: Text(
                   "R\$ ${ValuesHelper.changeDots(ValuesHelper.convertValue2Digits(quotesOpening[i]))}",
                   style: style)),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: defaultPadding,
           child: Center(
-              child: Text(variationMinusOne[i].toString() + "%",
+              child: Text(i == 0 ? '-' : variationMinusOne[i].toString() + "%",
                   textAlign: TextAlign.center, style: style)),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: defaultPadding,
           child: Center(
-              child: Text(variationFirstDay[i].toString() + "%",
+              child: Text(i == 0 ? '-' : variationFirstDay[i].toString() + "%",
                   textAlign: TextAlign.center, style: style)),
         )
       ]);
@@ -74,6 +75,13 @@ class VariationTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Table(
       border: TableBorder.all(),
+      columnWidths: {
+        0: FlexColumnWidth(0.5),
+        1: FlexColumnWidth(1.5),
+        2: FlexColumnWidth(1.5),
+        3: FlexColumnWidth(1.5),
+        4: FlexColumnWidth(1.5),
+      },
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
       children: createTable(
         financialAsset.getLast30Dates(),

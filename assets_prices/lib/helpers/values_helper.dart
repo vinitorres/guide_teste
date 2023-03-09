@@ -11,7 +11,7 @@ class ValuesHelper {
         percents.add(0);
       } else {
         percents.add(
-            calculatePercentVariation(quotesOpening.first, quotesOpening[i]));
+            calculatePercentVariation(quotesOpening[i - 1], quotesOpening[i]));
       }
     }
 
@@ -20,12 +20,12 @@ class ValuesHelper {
 
   static List<double> getPercentToFirstDay(FinancialAsset financialAsset) {
     List<double> percents = [];
-    double firstDay = financialAsset.getFirstDayValue();
     List<DateTime> dates = financialAsset.getLast30Dates();
     List<double> quotesOpening = financialAsset.getLast30QuotesOpening();
 
     for (int i = 0; i < dates.length; i++) {
-      percents.add(calculatePercentVariation(firstDay, quotesOpening[i]));
+      percents
+          .add(calculatePercentVariation(quotesOpening[0], quotesOpening[i]));
     }
 
     return percents;

@@ -35,20 +35,20 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.assetsSymbols.count ?? 0
+        return viewModel?.getNumberOfAssets() ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
         cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .none
-        cell.textLabel?.text = viewModel?.assetsSymbols[indexPath.row]
+        cell.textLabel?.text = viewModel?.getAssetForIndex(index: indexPath.row)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let flutterEngine = (UIApplication.shared.delegate as! AppDelegate).flutterEngine
-        let selectedSymbol = viewModel?.assetsSymbols[indexPath.row]
+        let selectedSymbol = viewModel?.getAssetForIndex(index: indexPath.row)
         
         flutterEngine.viewController = nil
         

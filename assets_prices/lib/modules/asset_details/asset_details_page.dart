@@ -16,12 +16,12 @@ class AssetDetailsPage extends StatefulWidget {
 class _AssetDetailsPageState extends State<AssetDetailsPage> {
   final cubit = GetIt.instance.get<AssetDetailsCubit>();
 
-  var receivedSymbol = '';
+  var receivedSymbol = 'BBAS3.SA';
 
   @override
   void initState() {
     super.initState();
-    //cubit.getFinancialAsset(receivedSymbol);
+    cubit.getFinancialAsset(receivedSymbol);
     getReceivedMessage();
   }
 
@@ -42,11 +42,21 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> {
     return Scaffold(
       body: BlocConsumer<AssetDetailsCubit, AssetDetailsState>(
         bloc: cubit,
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state.status == AssetDetailsStatus.error) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.errorMessage ?? 'Error'),
+              ),
+            );
+          }
+        },
         builder: (context, state) {
           if (state.status == AssetDetailsStatus.loading) {
             return const Center(child: CircularProgressIndicator());
-          } else if (state.status == AssetDetailsStatus.loaded) {
+          }
+
+          if (state.status == AssetDetailsStatus.loaded) {
             return SafeArea(
               child: SingleChildScrollView(
                 child: Column(
@@ -87,9 +97,9 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> {
                 ),
               ),
             );
-          } else {
-            return const Center(child: Text('Error'));
           }
+
+          return const Center(child: Text('Error'));
         },
       ),
     );
