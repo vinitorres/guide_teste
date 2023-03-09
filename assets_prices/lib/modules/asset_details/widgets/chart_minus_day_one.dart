@@ -1,3 +1,4 @@
+import 'package:assets_prices/helpers/values_helper.dart';
 import 'package:assets_prices/models/financial_asset.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class _ChartMinusDayOneState extends State<ChartMinusDayOne> {
   List<FlSpot> getSpots() {
     List<FlSpot> spots = [];
     var values = widget.financialAsset.getLast30QuotesOpening();
+    values = values.map((e) => ValuesHelper.convertValue2Digits(e)).toList();
     for (int i = 0; i < values.length; i++) {
       spots.add(FlSpot(i.toDouble(), values[i]));
     }

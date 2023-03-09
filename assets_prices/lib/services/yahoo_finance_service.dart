@@ -1,3 +1,4 @@
+import 'package:assets_prices/models/chart_response.dart';
 import 'package:assets_prices/models/financial_asset.dart';
 import 'package:dio/dio.dart';
 
@@ -11,10 +12,10 @@ class YahooFinanceService {
   final String _baseUrl = 'https://query2.finance.yahoo.com/v8/finance/';
 
   //Endpoints
-  final String chartUrl = 'chart/';
+  final String chartUrl = 'chart/{symbol}?interval=1d&range=max';
 
   Future<FinancialAsset?> getFinancialAsset(String symbol) async {
-    var url = _baseUrl + chartUrl + symbol + '?interval=1d&range=max';
+    var url = _baseUrl + chartUrl.replaceAll('{symbol}', symbol);
 
     final response = await dio.get(url);
     if (response.statusCode == 200) {

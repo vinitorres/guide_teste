@@ -1,6 +1,5 @@
 import 'package:assets_prices/channel/platform_channel.dart';
 import 'package:assets_prices/modules/asset_details/cubit/asset_details_cubit.dart';
-import 'package:assets_prices/modules/asset_details/widgets/chart_from_first_day.dart';
 import 'package:assets_prices/modules/asset_details/widgets/chart_minus_day_one.dart';
 import 'package:assets_prices/modules/asset_details/widgets/variation_table.dart';
 import 'package:flutter/material.dart';
@@ -53,46 +52,36 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 20,
+                      height: 16,
                     ),
                     Center(
                       child: Text(state.financialAsset?.meta.symbol ?? 'Error'),
                     ),
                     SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text('Grafico variação do valor D-1'),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    ChartMinusDayOne(
-                      financialAsset: state.financialAsset!,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                          'Grafico variação porcentagem do valor inicial até o atual'),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    ChartFromFirstDay(
-                      financialAsset: state.financialAsset!,
-                    ),
-                    SizedBox(
-                      height: 20,
+                      height: 16,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: VariationTable(
                         financialAsset: state.financialAsset!,
                       ),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child:
+                          Text('Grafico variação do valor ultimos 30 pregões'),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    ChartMinusDayOne(
+                      financialAsset: state.financialAsset!,
+                    ),
+                    SizedBox(
+                      height: 16,
                     ),
                   ],
                 ),
