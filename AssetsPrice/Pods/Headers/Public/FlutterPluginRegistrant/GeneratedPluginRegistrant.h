@@ -1,0 +1,1 @@
+../../../../../assets_prices/.ios/Flutter/FlutterPluginRegistrant/Classes/GeneratedPluginRegistrant.h

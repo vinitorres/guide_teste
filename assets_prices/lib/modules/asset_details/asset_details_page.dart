@@ -1,0 +1,108 @@
+import 'package:assets_prices/channel/platform_channel.dart';
+import 'package:assets_prices/modules/asset_details/cubit/asset_details_cubit.dart';
+import 'package:assets_prices/modules/asset_details/widgets/chart_from_first_day.dart';
+import 'package:assets_prices/modules/asset_details/widgets/chart_minus_day_one.dart';
+import 'package:assets_prices/modules/asset_details/widgets/variation_table.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+
+class AssetDetailsPage extends StatefulWidget {
+  const AssetDetailsPage({super.key});
+
+  @override
+  State<AssetDetailsPage> createState() => _AssetDetailsPageState();
+}
+
+class _AssetDetailsPageState extends State<AssetDetailsPage> {
+  final cubit = GetIt.instance.get<AssetDetailsCubit>();
+
+  var receivedSymbol = 'BBAS3.SA';
+
+  @override
+  void initState() {
+    super.initState();
+    cubit.getFinancialAsset(receivedSymbol);
+    //getReceivedMessage();
+  }
+
+  getReceivedMessage() {
+    channel.setMethodCallHandler((call) async {
+      if (call.method == 'sendSymbol') {
+        receiveString(call.arguments);
+        setState(() {
+          receivedSymbol = call.arguments;
+        });
+        cubit.getFinancialAsset(receivedSymbol);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: BlocConsumer<AssetDetailsCubit, AssetDetailsState>(
+        bloc: cubit,
+        listener: (context, state) {},
+        builder: (context, state) {
+          if (state.status == AssetDetailsStatus.loading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state.status == AssetDetailsStatus.loaded) {
+            return SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                      child: Text(state.financialAsset?.meta.symbol ?? 'Error'),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text('Grafico variação do valor D-1'),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    ChartMinusDayOne(
+                      financialAsset: state.financialAsset!,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                          'Grafico variação porcentagem do valor inicial até o atual'),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    ChartFromFirstDay(
+                      financialAsset: state.financialAsset!,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: VariationTable(
+                        financialAsset: state.financialAsset!,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return const Center(child: Text('Error'));
+          }
+        },
+      ),
+    );
+  }
+}

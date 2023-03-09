@@ -1,0 +1,10 @@
+flutter_application_path = '../assets_prices'
+load File.join(flutter_application_path, '.ios', 'Flutter', 'podhelper.rb')
+
+target 'AssetsPrice' do
+  install_all_flutter_pods(flutter_application_path)
+end
+
+post_install do |installer|
+  flutter_post_install(installer) if defined?(flutter_post_install)
+end
