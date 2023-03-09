@@ -28,7 +28,7 @@ class _ChartMinusDayOneState extends State<ChartMinusDayOne> {
     var values = widget.financialAsset.getLast30QuotesOpening();
     values = values.map((e) => ValuesHelper.convertValue2Digits(e)).toList();
     for (int i = 0; i < values.length; i++) {
-      spots.add(FlSpot(i.toDouble(), values[i]));
+      spots.add(FlSpot((i + 1).toDouble(), values[i]));
     }
     return spots;
   }
@@ -39,28 +39,30 @@ class _ChartMinusDayOneState extends State<ChartMinusDayOne> {
       scrollDirection: Axis.horizontal,
       child: Container(
         padding: EdgeInsets.all(16),
-        height: 500,
-        width: 500,
-        child: LineChart(LineChartData(
-          lineBarsData: [
-            LineChartBarData(
-              spots: getSpots(),
-              isCurved: false,
-              barWidth: 3,
-              isStrokeCapRound: false,
-              dotData: FlDotData(
-                show: false,
+        height: 400,
+        width: 600,
+        child: LineChart(
+          LineChartData(
+            lineBarsData: [
+              LineChartBarData(
+                spots: getSpots(),
+                isCurved: false,
+                barWidth: 2,
+                isStrokeCapRound: true,
+                dotData: FlDotData(
+                  show: true,
+                ),
+                belowBarData: BarAreaData(
+                  show: true,
+                ),
               ),
-              belowBarData: BarAreaData(
-                show: true,
-              ),
-            ),
-          ],
-          maxX: 30,
-          minX: 0,
-          maxY: getMaxYValue(),
-          minY: getMinYValue(),
-        )),
+            ],
+            maxX: 30,
+            minX: 1,
+            maxY: getMaxYValue(),
+            minY: getMinYValue(),
+          ),
+        ),
       ),
     );
   }
