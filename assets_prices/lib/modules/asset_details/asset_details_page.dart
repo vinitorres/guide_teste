@@ -72,6 +72,11 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
+                      child:
+                          Text('Tabela variação do valor ultimos 30 pregões'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
                       child: VariationTable(
                         financialAsset: state.financialAsset!,
                       ),
