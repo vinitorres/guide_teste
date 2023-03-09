@@ -16,13 +16,13 @@ class AssetDetailsPage extends StatefulWidget {
 class _AssetDetailsPageState extends State<AssetDetailsPage> {
   final cubit = GetIt.instance.get<AssetDetailsCubit>();
 
-  var receivedSymbol = 'BBAS3.SA';
+  var receivedSymbol = '';
 
   @override
   void initState() {
     super.initState();
-    cubit.getFinancialAsset(receivedSymbol);
-    //getReceivedMessage();
+    //cubit.getFinancialAsset(receivedSymbol);
+    getReceivedMessage();
   }
 
   getReceivedMessage() {
